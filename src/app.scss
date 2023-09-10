@@ -1,0 +1,131 @@
+@use '@picocss/pico/scss/pico' with (
+	$enable-responsive-typography: false,
+	$enable-responsive-spacings: false,
+	$primary-hue: 212
+);
+@use 'bytemd/dist/index.css';
+
+:root {
+	--font-family: 'Mandali', system-ui, -apple-system, 'Segoe UI', 'Roboto', 'Ubuntu', 'Cantarell',
+		'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol',
+		'Noto Color Emoji';
+	--form-element-spacing-vertical: 0.3rem;
+	--form-element-spacing-horizontal: 0.45rem;
+	--muted-color: hsl(205 30% 85%);
+	--code-color: hsl(205 30% 30%);
+	--secondary-alt: hsl(205, 15%, 27%);
+	--card-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+	accent-color: var(--primary);
+}
+
+[data-theme='light'],
+:root:not([data-theme='dark']) {
+	--background-color: hsl(202 18% 93%);
+	--muted-color: hsl(205 30% 85%);
+	--code-color: hsl(205 30% 30%);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	--typography-spacing-vertical: 0.3rem;
+	color: inherit;
+}
+
+p {
+	--typography-spacing-vertical: 1rem;
+}
+
+a,
+[role='link'] {
+	--color: hsl(240, 85%, 54%);
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ol > li {
+	list-style: decimal;
+}
+
+body:has(.bytemd-fullscreen) {
+	overflow: hidden;
+}
+
+.bytemd {
+	--editor-bg: hsl(0 0% 100% / 0.1);
+	--editor-text: black;
+	--editor-border: hsl(0 0% 0% / 0.3);
+	font-family: var(--font-family);
+	height: 100%;
+	color-scheme: light;
+	color: var(--editor-text);
+	background-color: var(--editor-bg);
+	border-color: var(--editor-bg);
+	border-inline: none;
+
+	&.bytemd-fullscreen {
+		--editor-bg: var(--note-color, hsl(0 0% 100%));
+		z-index: 1000;
+	}
+
+	.bytemd-toolbar {
+		background-color: var(--editor-bg);
+		border-color: var(--editor-border);
+	}
+
+	.bytemd-toolbar-icon:hover {
+		background-color: hsl(0 0% 0% / 0.075);
+	}
+
+	.CodeMirror {
+		color: var(--editor-text);
+		background-color: var(--editor-bg);
+	}
+
+	.bytemd-status {
+		color: var(--editor-text);
+		border-color: var(--editor-border);
+	}
+
+	.bytemd-split,
+	.bytemd-sidebar {
+		border-color: var(--editor-border);
+	}
+
+	.bytemd-sidebar ul {
+		color: var(--editor-text);
+	}
+}
+
+.bytemd-split .bytemd-preview {
+	border-color: var(--editor-border);
+}
+
+.tippy-box {
+	font-size: 0.875rem;
+	color: var(--tooltip-color);
+	background-color: var(--tooltip-background-color);
+}
+
+.tippy-content {
+	line-height: 1;
+	padding: 0.25rem 0.5rem;
+}
+
+.tippy-arrow {
+	color: var(--tooltip-background-color);
+}
+
+:root[data-theme='dark'] .bytemd {
+	--editor-bg: hsl(0 0% 0% / 0.075);
+	color-scheme: dark;
+
+	&.bytemd-fullscreen {
+		--editor-bg: var(--note-color, hsl(0 0% 80%));
+	}
+}

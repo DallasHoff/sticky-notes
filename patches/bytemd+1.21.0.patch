@@ -1,0 +1,45 @@
+diff --git a/node_modules/bytemd/svelte/editor.svelte b/node_modules/bytemd/svelte/editor.svelte
+index 652a063..9ab0895 100644
+--- a/node_modules/bytemd/svelte/editor.svelte
++++ b/node_modules/bytemd/svelte/editor.svelte
+@@ -253,6 +253,9 @@ onMount(async () => {
+     new ResizeObserver((entries) => {
+         containerWidth = entries[0].contentRect.width;
+         // console.log(containerWidth);
++        tick().then(() => {
++            editor.refresh();
++        })
+     }).observe(root, { box: 'border-box' });
+     // No need to call `on` because cm instance would change once after init
+ });
+diff --git a/node_modules/bytemd/svelte/toolbar.svelte b/node_modules/bytemd/svelte/toolbar.svelte
+index 26d879f..e6c238e 100644
+--- a/node_modules/bytemd/svelte/toolbar.svelte
++++ b/node_modules/bytemd/svelte/toolbar.svelte
+@@ -72,16 +72,16 @@ $: rightActions = [
+             },
+         },
+     },
+-    {
+-        title: locale.source,
+-        icon: icons.GithubOne,
+-        handler: {
+-            type: 'action',
+-            click() {
+-                window.open('https://github.com/bytedance/bytemd');
+-            },
+-        },
+-    },
++    // {
++    //     title: locale.source,
++    //     icon: icons.GithubOne,
++    //     handler: {
++    //         type: 'action',
++    //         click() {
++    //             window.open('https://github.com/bytedance/bytemd');
++    //         },
++    //     },
++    // },
+     ...rightAfferentActions,
+ ];
+ const tippyClass = 'bytemd-tippy';
