@@ -39,6 +39,7 @@ export const Migration20230830: Migration = {
 	},
 	async down(db: Kysely<any>) {
 		await db.schema.dropTable('note').execute();
+		await sql`DROP TRIGGER noteUpdateUpdatedAtTrigger`.execute(db);
 		await db.schema.dropTable('tag').execute();
 		await db.schema.dropTable('noteTag').execute();
 	},
