@@ -15,6 +15,9 @@ export default defineConfig({
 			},
 		},
 	],
+	build: {
+		target: 'esnext',
+	},
 	optimizeDeps: {
 		exclude: ['sqlocal', 'bytemd'],
 	},
