@@ -12,7 +12,8 @@
 	let scrollOffset = 0;
 
 	let notesOffset = 0;
-	let notesLimit = 1000;
+	let notesLimit = 100;
+	let prevNotesCount = 0;
 
 	let countUnsubscribe: Unsubscriber;
 	const resizeObserver = new ResizeObserver(updateVirtualScroll);
@@ -33,10 +34,11 @@
 			Math.min(notesCount - offset, Math.ceil(windowHeight / rowHeight) + paddingRows) *
 			columnCount;
 
-		if (offset === notesOffset && limit === notesLimit) return;
+		if (offset === notesOffset && limit === notesLimit && notesCount === prevNotesCount) return;
 
 		notesOffset = offset;
 		notesLimit = limit;
+		prevNotesCount = notesCount;
 
 		await notes.setPage(offset, limit);
 		scrollHeight = Math.max(0, fullHeight);
