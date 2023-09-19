@@ -31,7 +31,7 @@
 
 		const offset = Math.max(0, Math.floor(scrollTop / rowHeight) - paddingRows) * columnCount;
 		const limit =
-			Math.min(notesCount - offset, Math.ceil(windowHeight / rowHeight) + paddingRows) *
+			Math.min(notesCount - offset, Math.ceil(windowHeight / rowHeight) + paddingRows * 2) *
 			columnCount;
 
 		if (offset === notesOffset && limit === notesLimit && notesCount === prevNotesCount) return;
