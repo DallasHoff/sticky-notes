@@ -15,8 +15,34 @@ export class TagsStore implements Readable<TagFilter[]> {
 	selectedTags = derived(this.selected, ($selected) => Array.from($selected));
 
 	constructor() {
+		this.initSelections();
 		this.refreshTags();
 	}
+
+	private initSelections = () => {
+		if (!localStorage.noteTagsSelected) return;
+
+		let storedSelections: unknown;
+
+		try {
+			storedSelections = JSON.parse(localStorage.noteTagsSelected);
+		} catch (err) {
+			localStorage.removeItem('noteTagsSelected');
+			return;
+		}
+
+		const selectionsAsArray = storedSelections;
+		if (!Array.isArray(selectionsAsArray)) return;
+
+		const seletionsAsInts = selectionsAsArray
+			.map((tagId) => parseInt(tagId))
+			.filter((tagId) => !isNaN(tagId));
+
+		this.selected.update((selected) => {
+			seletionsAsInts.forEach((tagId) => selected.add(tagId));
+			return selected;
+		});
+	};
 
 	subscribe = this.tags.subscribe;
 
@@ -84,6 +110,10 @@ export class TagsStore implements Readable<TagFilter[]> {
 		this.selected.update((selected) => {
 			const method = selected.has(tagId) ? 'delete' : 'add';
 			selected[method](tagId);
+
+			const selectionsAsString = JSON.stringify(Array.from(selected));
+			localStorage.noteTagsSelected = selectionsAsString;
+
 			return selected;
 		});
 
