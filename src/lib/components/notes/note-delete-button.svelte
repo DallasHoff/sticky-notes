@@ -5,14 +5,15 @@
 	import type { Note } from '$lib/stores/notes';
 	import FaCircleXmark from '$icon/fa-circle-xmark.svelte';
 	import FaCircleCheck from '$icon/fa-circle-check.svelte';
+	import type { NoteEditorStore } from '$lib/stores/note-editor';
 
 	export let note: Note;
-
-	let confirming: boolean = false;
+	export let noteEditorStore: NoteEditorStore;
+	const { expanded, expand } = noteEditorStore;
 </script>
 
-{#if !confirming}
-	<Button plain icon label="Delete note" on:click={() => (confirming = true)}>
+{#if $expanded !== 'delete'}
+	<Button plain icon label="Delete note" on:click={() => expand('delete')}>
 		<FaTrash />
 	</Button>
 {:else}
@@ -21,7 +22,7 @@
 		<Button plain icon label="Confirm deletion" on:click={() => notes.remove(note.id)}>
 			<FaCircleCheck />
 		</Button>
-		<Button plain icon label="Cancel deletion" on:click={() => (confirming = false)}>
+		<Button plain icon label="Cancel deletion" on:click={() => expand(null)}>
 			<FaCircleXmark />
 		</Button>
 	</div>

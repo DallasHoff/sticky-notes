@@ -4,10 +4,11 @@
 	import Button from '../button.svelte';
 	import { notes, themeUpperCase } from '$lib/stores';
 	import type { Note } from '$lib/stores/notes';
+	import type { NoteEditorStore } from '$lib/stores/note-editor';
 
 	export let note: Note;
-
-	let selectingColor: boolean = false;
+	export let noteEditorStore: NoteEditorStore;
+	const { expanded, expand } = noteEditorStore;
 
 	const colors = Object.entries(NoteColor) as [
 		[keyof typeof NoteColor, (typeof NoteColor)[keyof typeof NoteColor]]
@@ -15,12 +16,12 @@
 
 	function changeColor(color: keyof typeof NoteColor) {
 		notes.update(note.id, { color });
-		selectingColor = false;
+		expand(null);
 	}
 </script>
 
-{#if !selectingColor}
-	<Button plain icon label="Change color" on:click={() => (selectingColor = true)}>
+{#if $expanded !== 'colors'}
+	<Button plain icon label="Change color" on:click={() => expand('colors')}>
 		<FaPalette />
 	</Button>
 {:else}

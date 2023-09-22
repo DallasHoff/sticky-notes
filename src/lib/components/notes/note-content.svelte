@@ -5,7 +5,6 @@
 
 	export let note: Note;
 	export let noteEditorStore: NoteEditorStore;
-
 	const { editing, draftContent, draftChange } = noteEditorStore;
 </script>
 

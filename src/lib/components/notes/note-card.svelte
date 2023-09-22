@@ -34,9 +34,9 @@
 <article class="note-card" style:--note-color={NoteColor[note.color][$themeUpperCase]}>
 	<header class="note-card__header" hidden={$editing}>
 		<div class="note-card__header-buttons">
-			<NoteDeleteButton {note} />
+			<NoteDeleteButton {note} {noteEditorStore} />
 			<div class="note-card__spacer" />
-			<NoteColorPicker {note} />
+			<NoteColorPicker {note} {noteEditorStore} />
 			<NoteTagButton on:click={focusTags} />
 		</div>
 		<div hidden={!showTags && $noteTags.length === 0}>
