@@ -15,6 +15,8 @@ export class NotesStore implements Readable<Note[]> {
 	private offset = 0;
 	private limit = 1000;
 
+	readonly count = readonly(this.notesCount);
+
 	constructor(private tags: TagsStore) {
 		setTimeout(() => {
 			tags.selectedTags.subscribe(() => {
@@ -24,8 +26,6 @@ export class NotesStore implements Readable<Note[]> {
 	}
 
 	subscribe = this.notes.subscribe;
-
-	count = readonly(this.notesCount);
 
 	refreshNotes = async () => {
 		const selectedTags = get(this.tags.selectedTags);

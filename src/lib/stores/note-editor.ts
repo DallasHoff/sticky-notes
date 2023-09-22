@@ -1,29 +1,32 @@
-import { get, writable } from 'svelte/store';
+import { get, readonly, writable } from 'svelte/store';
 import type { Note, NotesStore } from './notes';
 
 export class NoteEditorStore {
-	editing = writable<boolean>(false);
-	draftContent = writable<string>('');
+	private _editing = writable<boolean>(false);
+	private _draftContent = writable<string>('');
+
+	readonly editing = readonly(this._editing);
+	readonly draftContent = readonly(this._draftContent);
 
 	constructor(private noteId: Note['id'], private notes: NotesStore) {}
 
 	startEditing = () => {
 		const note = this.notes.get(this.noteId);
-		this.draftContent.set(note?.content ?? '');
-		this.editing.set(true);
+		this._draftContent.set(note?.content ?? '');
+		this._editing.set(true);
 	};
 
 	draftChange = (event: CustomEvent<{ value: string }>) => {
-		this.draftContent.set(event.detail.value);
+		this._draftContent.set(event.detail.value);
 	};
 
 	save = () => {
-		const content = get(this.draftContent);
+		const content = get(this._draftContent);
 		this.notes.update(this.noteId, { content });
-		this.editing.set(false);
+		this._editing.set(false);
 	};
 
 	discard = () => {
-		this.editing.set(false);
+		this._editing.set(false);
 	};
 }

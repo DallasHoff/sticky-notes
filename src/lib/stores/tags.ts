@@ -12,7 +12,7 @@ export class TagsStore implements Readable<TagFilter[]> {
 	private tags = writable<TagFilter[]>([]);
 	private selected = writable<Set<Tag['id']>>(new Set());
 
-	selectedTags = derived(this.selected, ($selected) => Array.from($selected));
+	readonly selectedTags = derived(this.selected, ($selected) => Array.from($selected));
 
 	constructor() {
 		this.initSelections();
