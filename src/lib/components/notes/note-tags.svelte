@@ -26,23 +26,32 @@
 </script>
 
 <div class="note-tags">
-	{#each $noteTags as tag (tag.id)}
-		<div class="note-tags__tag">
-			{tag.label}
-			<Button
-				plain
-				icon
-				size="sm"
-				label="Remove tag"
-				tooltipPlacement={null}
-				on:click={() => removeTag(tag.id)}
-			>
-				<FaXmark />
-			</Button>
-		</div>
-	{/each}
+	<ul class="note-tags__tag-list" aria-label="Note tags">
+		{#each $noteTags as tag (tag.id)}
+			<li class="note-tags__tag">
+				{tag.label}
+				<Button
+					plain
+					icon
+					size="sm"
+					label="Remove tag"
+					tooltipPlacement={null}
+					on:click={() => removeTag(tag.id)}
+				>
+					<FaXmark />
+				</Button>
+			</li>
+		{/each}
+	</ul>
 	<div class="note-tags__textbox" data-tooltip="Add tag">
-		<input type="text" bind:this={textbox} bind:value={newTagLabel} on:keypress={addTag} />
+		<input
+			type="text"
+			bind:this={textbox}
+			name="newTag"
+			aria-label="New tag"
+			bind:value={newTagLabel}
+			on:keypress={addTag}
+		/>
 	</div>
 </div>
 
@@ -54,6 +63,16 @@
 		gap: 0.3rem;
 		padding: 0.4rem 0.75rem;
 		border-bottom: 1px solid hsl(0 0% 0% / 0.15);
+
+		&__tag-list {
+			display: flex;
+			align-items: center;
+			flex-wrap: wrap;
+			gap: 0.3rem;
+			margin: 0;
+			padding: 0;
+			color: inherit;
+		}
 
 		&__tag,
 		&__textbox input {
