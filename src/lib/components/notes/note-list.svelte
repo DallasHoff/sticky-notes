@@ -75,10 +75,9 @@
 
 <style lang="scss">
 	.note-list {
-		--note-width: 350px;
 		display: grid;
-		grid-template-columns: repeat(auto-fill, minmax(0, var(--note-width)));
-		grid-auto-rows: var(--note-height, calc(var(--note-width) * 1.1));
+		grid-template-columns: repeat(auto-fill, minmax(0, calc(var(--note-height, 385px) * 0.92)));
+		grid-auto-rows: var(--note-height, 385px);
 		gap: var(--note-gap, 1rem);
 		justify-content: center;
 		height: var(--scroll-height, auto);

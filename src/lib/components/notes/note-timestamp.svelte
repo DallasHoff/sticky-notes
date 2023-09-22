@@ -24,6 +24,7 @@
 <style lang="scss">
 	time {
 		font-size: 0.85em;
+		text-align: right;
 		color: hsl(0 0% 0% / 0.5);
 	}
 </style>

@@ -57,10 +57,10 @@
 
 		&__tag,
 		&__textbox input {
-			font-size: 0.8rem;
+			font-size: 1rem;
 			width: auto;
 			height: auto;
-			padding: 0 0.4rem;
+			padding: 0 0.5em;
 			margin: 0;
 			color: inherit;
 			background-color: transparent;
@@ -70,7 +70,7 @@
 		&__tag {
 			display: flex;
 			align-items: center;
-			gap: 0.3rem;
+			gap: 0.4em;
 			border: 1px solid hsl(0 0% 0% / 0.4);
 			border-radius: 0.8em;
 		}
@@ -96,6 +96,15 @@
 				&:focus {
 					border: 1px solid hsl(0 0% 0% / 0.4);
 				}
+			}
+		}
+	}
+
+	@media (min-width: 768px) {
+		.note-tags {
+			&__tag,
+			&__textbox input {
+				font-size: 0.8rem;
 			}
 		}
 	}

@@ -87,6 +87,7 @@ body:has(.bytemd-fullscreen) {
 	}
 
 	.CodeMirror {
+		font-size: 1rem;
 		color: var(--editor-text);
 		background-color: var(--editor-bg);
 	}
@@ -131,5 +132,13 @@ body:has(.bytemd-fullscreen) {
 
 	&.bytemd-fullscreen {
 		--editor-bg: var(--note-color, hsl(0 0% 80%));
+	}
+}
+
+@media (min-width: 768px) {
+	.bytemd {
+		.CodeMirror {
+			font-size: 0.9rem;
+		}
 	}
 }
