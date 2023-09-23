@@ -30,3 +30,7 @@ export const NoteColor = {
 		DARK: 'hsl(0, 0%, 85%)',
 	},
 } as const;
+
+export const NoteColorArray = Object.entries(NoteColor) as [
+	[keyof typeof NoteColor, (typeof NoteColor)[keyof typeof NoteColor]]
+];

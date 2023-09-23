@@ -1,8 +1,9 @@
 <script lang="ts">
 	import Modal from '../modal.svelte';
 	import { settings } from '$lib/stores';
+	import SettingsColorPicker from './settings-color-picker.svelte';
 
-	const { open, noteScale } = settings;
+	const { open, noteScale, defaultNoteColor } = settings;
 </script>
 
 <Modal title="Settings" size="sm" bind:open={$open}>
@@ -17,5 +18,8 @@
 			bind:value={$noteScale}
 		/>
 	</label>
-	<!-- TODO: setting for default note color -->
+	<fieldset>
+		<legend>Default Note Color</legend>
+		<SettingsColorPicker bind:value={$defaultNoteColor} />
+	</fieldset>
 </Modal>

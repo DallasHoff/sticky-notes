@@ -1,6 +1,6 @@
 <script lang="ts">
 	import FaPalette from '$icon/fa-palette.svelte';
-	import { NoteColor } from '$lib/db/enums/note-color';
+	import { NoteColor, NoteColorArray } from '$lib/db/enums/note-color';
 	import Button from '../button.svelte';
 	import { notes, themeUpperCase } from '$lib/stores';
 	import type { Note } from '$lib/stores/notes';
@@ -9,10 +9,6 @@
 	export let note: Note;
 	export let noteEditorStore: NoteEditorStore;
 	const { expanded, expand } = noteEditorStore;
-
-	const colors = Object.entries(NoteColor) as [
-		[keyof typeof NoteColor, (typeof NoteColor)[keyof typeof NoteColor]]
-	];
 
 	function changeColor(color: keyof typeof NoteColor) {
 		notes.update(note.id, { color });
@@ -26,7 +22,7 @@
 	</Button>
 {:else}
 	<div class="color-options">
-		{#each colors as [color, colorData] (color)}
+		{#each NoteColorArray as [color, colorData] (color)}
 			<button
 				type="button"
 				class="color-options__option"
