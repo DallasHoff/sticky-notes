@@ -3,6 +3,8 @@
 	import NoteAddButton from '$lib/components/notes/note-add-button.svelte';
 	import NoteListPlaceholder from '$lib/components/notes/note-list-placeholder.svelte';
 	import NoteList from '$lib/components/notes/note-list.svelte';
+	import SettingsButton from '$lib/components/settings/settings-button.svelte';
+	import SettingsModal from '$lib/components/settings/settings-modal.svelte';
 	import ThemeToggle from '$lib/components/theme-toggle.svelte';
 	import { notes, tags } from '$lib/stores';
 
@@ -10,8 +12,9 @@
 </script>
 
 <header>
-	<h1>Notes</h1>
 	<ThemeToggle />
+	<h1>Notes</h1>
+	<SettingsButton />
 </header>
 <main>
 	<section hidden={$tags.length === 0}>
@@ -26,13 +29,14 @@
 		<NoteAddButton />
 	</section>
 </main>
+<SettingsModal />
 
 <style lang="scss">
 	header {
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		gap: 1.2rem;
+		gap: 2rem;
 		margin: 1.5rem;
 
 		h1 {

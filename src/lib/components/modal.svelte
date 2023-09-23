@@ -40,6 +40,7 @@
 	.app-modal {
 		article {
 			max-width: var(--max-width, none);
+			flex: 1 0 auto;
 		}
 
 		header {

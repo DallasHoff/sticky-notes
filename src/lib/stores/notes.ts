@@ -3,6 +3,7 @@ import type { Schema } from '$lib/db/schema';
 import type { Insertable, Selectable, Updateable } from 'kysely';
 import { writable, type Readable, get, readonly } from 'svelte/store';
 import type { TagsStore } from './tags';
+import { settings } from '.';
 
 export type Note = Selectable<Schema['note']>;
 export type NewNote = Insertable<Schema['note']>;
@@ -68,7 +69,7 @@ export class NotesStore implements Readable<Note[]> {
 	add = async (newNote?: NewNote, scrollToTop?: boolean) => {
 		if (!newNote) {
 			newNote = {
-				color: 'YELLOW', // TODO: add way to set the default color
+				color: get(settings.defaultNoteColor),
 				content: '',
 			};
 		}

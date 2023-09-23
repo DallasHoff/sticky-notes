@@ -1,6 +1,6 @@
 <script lang="ts">
 	import NoteCard from '$lib/components/notes/note-card.svelte';
-	import { notes } from '$lib/stores';
+	import { notes, settings } from '$lib/stores';
 	import { onDestroy, onMount } from 'svelte';
 	import { get, type Unsubscriber } from 'svelte/store';
 
@@ -15,6 +15,8 @@
 	let notesLimit = 100;
 	let prevNotesCount = 0;
 
+	const { noteScale } = settings;
+	let scaleUnsubscribe: Unsubscriber;
 	let countUnsubscribe: Unsubscriber;
 	const resizeObserver = new ResizeObserver(updateVirtualScroll);
 
@@ -24,7 +26,7 @@
 			.getComputedStyle(noteListElement)
 			.getPropertyValue('grid-template-columns')
 			.split(' ').length;
-		const rowHeight = noteHeight + noteGap;
+		const rowHeight = Math.floor(noteHeight * get(noteScale)) + noteGap;
 		const fullHeight = Math.ceil(notesCount / columnCount) * rowHeight;
 		const windowHeight = window.innerHeight;
 		const scrollTop = window.scrollY + noteListElement.offsetTop;
@@ -46,12 +48,14 @@
 	}
 
 	onMount(() => {
+		scaleUnsubscribe = settings.noteScale.subscribe(updateVirtualScroll);
 		countUnsubscribe = notes.count.subscribe(updateVirtualScroll);
 		resizeObserver.observe(noteListElement);
 		window.addEventListener('scroll', updateVirtualScroll);
 	});
 
 	onDestroy(() => {
+		scaleUnsubscribe();
 		countUnsubscribe();
 		resizeObserver.disconnect();
 		window.removeEventListener('scroll', updateVirtualScroll);
@@ -61,7 +65,7 @@
 <ul
 	bind:this={noteListElement}
 	class="note-list"
-	style:--note-height={`${noteHeight}px`}
+	style:--note-height={`${Math.floor(noteHeight * $noteScale)}px`}
 	style:--note-gap={`${noteGap}px`}
 	style:--scroll-height={`${scrollHeight}px`}
 	style:--scroll-offset={`translateY(${scrollOffset}px)`}

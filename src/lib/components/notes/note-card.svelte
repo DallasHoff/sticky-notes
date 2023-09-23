@@ -43,7 +43,7 @@
 			<NoteTags {noteTags} bind:this={tagsComponent} />
 		</div>
 	</header>
-	<div class="note-card__body">
+	<div class="note-card__body" class:note-card__body--editing={$editing}>
 		<NoteContent {note} {noteEditorStore} />
 	</div>
 	<footer class="note-card__footer">
@@ -94,6 +94,10 @@
 		&__body {
 			flex-grow: 1;
 			overflow: auto;
+
+			&--editing {
+				overflow: hidden;
+			}
 		}
 
 		&__footer {
