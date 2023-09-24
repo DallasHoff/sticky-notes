@@ -21,8 +21,15 @@
 	function close() {
 		open = false;
 	}
+
+	function escape(event: KeyboardEvent) {
+		if (event.key === 'Escape') {
+			close();
+		}
+	}
 </script>
 
+<svelte:window on:keyup={escape} />
 <dialog {open} on:click={close} class="app-modal">
 	<article style:--max-width={maxWidths[size]} on:click|stopPropagation>
 		<header>
