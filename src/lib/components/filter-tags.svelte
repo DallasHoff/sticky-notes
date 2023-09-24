@@ -67,7 +67,7 @@
 		}
 
 		&__matched-notes {
-			color: var(--muted-color);
+			color: var(--neutral-color);
 		}
 	}
 </style>

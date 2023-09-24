@@ -6,12 +6,12 @@
 @use 'bytemd/dist/index.css';
 
 :root {
-	--font-family: 'Mandali', system-ui, -apple-system, 'Segoe UI', 'Roboto', 'Ubuntu', 'Cantarell',
-		'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol',
+	--font-family: 'M PLUS Rounded 1c', system-ui, -apple-system, 'Segoe UI', 'Roboto', 'Ubuntu',
+		'Cantarell', 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol',
 		'Noto Color Emoji';
 	--form-element-spacing-vertical: 0.3rem;
 	--form-element-spacing-horizontal: 0.45rem;
-	--muted-color: hsl(205 30% 85%);
+	--neutral-color: hsl(205 30% 85%);
 	--code-color: hsl(205 30% 30%);
 	--secondary-alt: hsl(205, 15%, 27%);
 	--card-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
@@ -21,7 +21,6 @@
 [data-theme='light'],
 :root:not([data-theme='dark']) {
 	--background-color: hsl(202 18% 93%);
-	--muted-color: hsl(205 30% 85%);
 	--code-color: hsl(205 30% 30%);
 }
 
@@ -44,8 +43,16 @@ a,
 	--color: hsl(240, 85%, 54%);
 }
 
+form {
+	margin: 0;
+}
+
 button {
 	touch-action: manipulation;
+}
+
+hr {
+	border-top: 1px solid var(--form-element-border-color);
 }
 
 ul > li {
