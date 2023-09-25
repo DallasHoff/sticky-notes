@@ -1,21 +1,27 @@
 <script lang="ts">
 	import { importDb } from '$lib/db/import-db';
+	import Alert from '../alert.svelte';
 	import Button from '../button.svelte';
 	import Modal from '../modal.svelte';
 
 	export let open: boolean;
 
 	let submitting: boolean = false;
+	let noFileError: boolean = false;
+	let importFailedError: boolean = false;
 
 	async function submit(event: SubmitEvent) {
 		submitting = true;
+		noFileError = false;
+		importFailedError = false;
+
 		const form = event.target as HTMLFormElement;
 		const formData = new FormData(form);
 		const [dbFile] = formData.getAll('dbFile') as File[];
 
 		if (!dbFile || dbFile.name === '') {
-			// TODO: message that no file was selected
 			submitting = false;
+			noFileError = true;
 			return;
 		}
 
@@ -25,7 +31,7 @@
 			form.reset();
 			open = false;
 		} else {
-			// TODO: message that import failed
+			importFailedError = true;
 		}
 
 		submitting = false;
@@ -39,13 +45,30 @@
 			<strong>Warning:</strong>
 			This will overwrite all of your current notes.
 		</p>
-		<input type="file" name="dbFile" accept=".db" />
-		<Button type="submit" busy={submitting}>Import</Button>
+		<div class="import-controls">
+			<input type="file" name="dbFile" accept=".db" />
+			{#if noFileError === true}
+				<Alert type="error">Please choose a backup file.</Alert>
+			{/if}
+			{#if importFailedError === true}
+				<Alert type="error">
+					Import failed. Please make sure that you selected a notes backup file.
+				</Alert>
+			{/if}
+			<Button type="submit" busy={submitting}>Import</Button>
+		</div>
 	</form>
 </Modal>
 
 <style lang="scss">
-	input {
-		margin: 1rem 0 1.5rem;
+	.import-controls {
+		display: flex;
+		flex-direction: column;
+		gap: 1.5rem;
+		margin-top: 1rem;
+
+		input {
+			margin: 0;
+		}
 	}
 </style>
