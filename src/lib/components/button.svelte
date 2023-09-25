@@ -3,6 +3,8 @@
 	export let secondary: boolean = false;
 	export let icon: boolean = false;
 	export let plain: boolean = false;
+	export let disabled: boolean = false;
+	export let busy: boolean = false;
 	export let size: 'sm' | 'md' | 'lg' = 'md';
 	export let label: string | null = null;
 	export let tooltipPlacement: 'top' | 'bottom' | 'left' | 'right' | null = 'top';
@@ -21,6 +23,8 @@
 	class:app-button--plain={plain}
 	class:app-button--icon={icon}
 	style:--size={fontSizes[size]}
+	disabled={disabled ? true : null}
+	aria-busy={busy ? true : null}
 	aria-label={label}
 	data-tooltip={tooltipPlacement ? label : null}
 	data-placement={tooltipPlacement}

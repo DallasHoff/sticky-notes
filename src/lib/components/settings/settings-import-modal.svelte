@@ -5,13 +5,17 @@
 
 	export let open: boolean;
 
+	let submitting: boolean = false;
+
 	async function submit(event: SubmitEvent) {
+		submitting = true;
 		const form = event.target as HTMLFormElement;
 		const formData = new FormData(form);
 		const [dbFile] = formData.getAll('dbFile') as File[];
 
 		if (!dbFile || dbFile.name === '') {
 			// TODO: message that no file was selected
+			submitting = false;
 			return;
 		}
 
@@ -23,6 +27,8 @@
 		} else {
 			// TODO: message that import failed
 		}
+
+		submitting = false;
 	}
 </script>
 
@@ -34,7 +40,7 @@
 			This will overwrite all of your current notes.
 		</p>
 		<input type="file" name="dbFile" accept=".db" />
-		<Button type="submit">Import</Button>
+		<Button type="submit" busy={submitting}>Import</Button>
 	</form>
 </Modal>
 
