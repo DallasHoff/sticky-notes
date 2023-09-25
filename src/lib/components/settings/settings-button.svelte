@@ -4,6 +4,13 @@
 	import { settings } from '$lib/stores';
 </script>
 
-<Button plain icon size="lg" label="Settings" on:click={() => settings.open.set(true)}>
+<Button
+	plain
+	icon
+	size="lg"
+	label="Settings"
+	tooltipPlacement="left"
+	on:click={() => settings.open.set(true)}
+>
 	<FaGear />
 </Button>

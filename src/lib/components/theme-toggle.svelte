@@ -10,6 +10,7 @@
 	icon
 	size="lg"
 	label={`Switch to ${$theme === 'dark' ? 'light' : 'dark'} theme`}
+	tooltipPlacement="right"
 	on:click={theme.toggle}
 >
 	{#if $theme === 'dark'}
