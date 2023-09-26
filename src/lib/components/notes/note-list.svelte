@@ -14,6 +14,7 @@
 	let notesOffset = 0;
 	let notesLimit = 100;
 	let prevNotesCount = 0;
+	let prevRowHeight = 0;
 
 	const { noteScale } = settings;
 	let scaleUnsubscribe: Unsubscriber;
@@ -36,11 +37,19 @@
 			Math.min(notesCount - offset, Math.ceil(windowHeight / rowHeight) + paddingRows * 2) *
 			columnCount;
 
-		if (offset === notesOffset && limit === notesLimit && notesCount === prevNotesCount) return;
+		if (
+			offset === notesOffset &&
+			limit === notesLimit &&
+			notesCount === prevNotesCount &&
+			rowHeight === prevRowHeight
+		) {
+			return;
+		}
 
 		notesOffset = offset;
 		notesLimit = limit;
 		prevNotesCount = notesCount;
+		prevRowHeight = rowHeight;
 
 		await notes.setPage(offset, limit);
 		scrollHeight = Math.max(0, fullHeight);
