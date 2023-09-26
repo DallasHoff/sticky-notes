@@ -9,9 +9,12 @@ export class ThemeStore implements Readable<Theme> {
 	);
 
 	constructor() {
+		const themeMetaTag = document.querySelector('meta[name="theme-color"]');
+
 		this.theme.subscribe((newTheme) => {
 			document.documentElement.dataset.theme = newTheme;
 			localStorage.setItem('theme', newTheme);
+			themeMetaTag?.setAttribute('content', newTheme === 'dark' ? '#18232c' : '#fbfbfc');
 		});
 	}
 
