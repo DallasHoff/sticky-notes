@@ -28,6 +28,10 @@
 
 <style lang="scss">
 	main {
-		margin: 1.5rem 1.5rem 7.5rem;
+		padding: 1.5rem 1.5rem 7.5rem;
+	}
+
+	section:last-of-type {
+		margin: 0;
 	}
 </style>

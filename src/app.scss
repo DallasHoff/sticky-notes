@@ -24,6 +24,35 @@
 	--code-color: hsl(205 30% 30%);
 }
 
+html {
+	min-height: 100vh;
+	background-image: url('/favicon.svg');
+	background-color: var(--card-sectionning-background-color);
+	background-size: min(20vw, 150px);
+	background-position: center center;
+	background-repeat: no-repeat;
+
+	&[data-theme] {
+		background-image: none;
+	}
+
+	&.modal-is-open {
+		scrollbar-gutter: stable;
+	}
+}
+
+body {
+	background-color: var(--background-color);
+
+	html[data-theme] & {
+		min-height: 100vh;
+	}
+
+	&:has(.bytemd-fullscreen) {
+		overflow: hidden;
+	}
+}
+
 h1,
 h2,
 h3,
@@ -61,14 +90,6 @@ ul > li {
 
 ol > li {
 	list-style: decimal;
-}
-
-html.modal-is-open {
-	scrollbar-gutter: stable;
-}
-
-body:has(.bytemd-fullscreen) {
-	overflow: hidden;
 }
 
 .bytemd {
