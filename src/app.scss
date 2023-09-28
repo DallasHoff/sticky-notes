@@ -26,6 +26,7 @@
 
 html {
 	min-height: 100vh;
+	min-height: 100dvh;
 	background-image: url('/favicon.svg');
 	background-color: var(--card-sectionning-background-color);
 	background-size: min(20vw, 150px);
@@ -46,6 +47,7 @@ body {
 
 	html[data-theme] & {
 		min-height: 100vh;
+		min-height: 100dvh;
 	}
 
 	&:has(.bytemd-fullscreen) {
