@@ -40,7 +40,7 @@
 			<NoteTagButton on:click={focusTags} />
 		</div>
 		<div hidden={!showTags && $noteTags.length === 0}>
-			<NoteTags {noteTags} bind:this={tagsComponent} />
+			<NoteTags {note} {noteTags} bind:this={tagsComponent} />
 		</div>
 	</header>
 	<div class="note-card__body" class:note-card__body--editing={$editing}>

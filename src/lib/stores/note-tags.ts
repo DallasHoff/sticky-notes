@@ -1,4 +1,4 @@
-import { writable, type Readable } from 'svelte/store';
+import { writable, type Readable, get } from 'svelte/store';
 import type { Note, NotesStore } from './notes';
 import { db } from '$lib/db/client';
 import type { Tag, NewTag, TagsStore } from './tags';
@@ -76,5 +76,22 @@ export class NoteTagsStore implements Readable<Tag[]> {
 		this.refreshTags();
 		this.notes.refreshNotes();
 		this.tags.refreshTags();
+	};
+
+	search = async (searchString: string): Promise<string[]> => {
+		if (!searchString) {
+			return [];
+		}
+
+		const currentTags = get(this.noteTags).map((tag) => tag.label);
+		const results = await db
+			.selectFrom('tag')
+			.select('label')
+			.where('label', 'like', `%${searchString}%`)
+			.where('label', 'not in', [...currentTags, searchString])
+			.limit(10)
+			.execute();
+
+		return results.map((result) => result.label);
 	};
 }

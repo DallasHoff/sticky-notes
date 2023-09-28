@@ -1,9 +1,11 @@
 <script lang="ts">
 	import FaXmark from '$icon/fa-xmark.svelte';
 	import type { NoteTagsStore } from '$lib/stores/note-tags';
+	import type { Note } from '$lib/stores/notes';
 	import type { Tag } from '$lib/stores/tags';
 	import Button from '../button.svelte';
 
+	export let note: Note;
 	export let noteTags: NoteTagsStore;
 
 	export function focusTextbox() {
@@ -12,12 +14,20 @@
 
 	let textbox: HTMLInputElement;
 	let newTagLabel: string = '';
+	let suggestions: string[] = [];
 
-	function addTag(event: KeyboardEvent) {
+	async function onKeyup(event: KeyboardEvent) {
 		if (event.key === 'Enter') {
-			noteTags.add({ label: newTagLabel });
-			newTagLabel = '';
+			addTag();
+		} else {
+			suggestions = await noteTags.search(newTagLabel);
 		}
+	}
+
+	function addTag() {
+		noteTags.add({ label: newTagLabel });
+		newTagLabel = '';
+		suggestions = [];
 	}
 
 	function removeTag(tagId: Tag['id']) {
@@ -49,9 +59,15 @@
 			bind:this={textbox}
 			name="newTag"
 			aria-label="New tag"
+			list={`note-tag--${note.id}`}
 			bind:value={newTagLabel}
-			on:keypress={addTag}
+			on:keyup={onKeyup}
 		/>
+		<datalist id={`note-tag--${note.id}`}>
+			{#each suggestions as suggestion}
+				<option value={suggestion} />
+			{/each}
+		</datalist>
 	</div>
 </div>
 
@@ -114,6 +130,10 @@
 
 				&:focus {
 					border: 1px solid hsl(0 0% 0% / 0.4);
+				}
+
+				&::-webkit-calendar-picker-indicator {
+					display: none !important;
 				}
 			}
 		}
