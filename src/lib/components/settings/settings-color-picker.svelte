@@ -64,6 +64,7 @@
 		}
 
 		&__check {
+			display: grid;
 			width: 1.2rem;
 			color: black;
 		}
