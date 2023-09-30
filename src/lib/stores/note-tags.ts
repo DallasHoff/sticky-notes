@@ -54,28 +54,18 @@ export class NoteTagsStore implements Readable<Tag[]> {
 	};
 
 	remove = async (tagId: Tag['id']) => {
-		const noteId = this.noteId;
-
-		await db.transaction().execute(async (trx) => {
-			await trx
-				.deleteFrom('noteTag')
-				.where('noteId', '=', noteId)
-				.where('tagId', '=', tagId)
-				.executeTakeFirstOrThrow();
-			const remainingTagUsage = await trx
-				.selectFrom('noteTag')
-				.where('tagId', '=', tagId)
-				.select('tagId')
-				.executeTakeFirst();
-
-			if (!remainingTagUsage) {
-				await trx.deleteFrom('tag').where('id', '=', tagId).executeTakeFirstOrThrow();
-			}
-		});
+		const [deletedNoteTag] = await db
+			.deleteFrom('noteTag')
+			.where('noteId', '=', this.noteId)
+			.where('tagId', '=', tagId)
+			.returningAll()
+			.execute();
 
 		this.refreshTags();
 		this.notes.refreshNotes();
 		this.tags.refreshTags();
+
+		return deletedNoteTag;
 	};
 
 	search = async (searchString: string): Promise<string[]> => {
