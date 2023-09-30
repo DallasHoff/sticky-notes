@@ -6,3 +6,5 @@ A simple notes app built with [SvelteKit](https://kit.svelte.dev/), [Kysely](htt
 - Tag notes to categorize and filter them
 - Dark theme or light theme
 - Local-first; all data is stored on-device
+
+Hosted at https://notes.dallashoffman.com/
