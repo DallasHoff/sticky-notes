@@ -5,6 +5,7 @@
 	import NoteListPlaceholder from '$lib/components/notes/note-list-placeholder.svelte';
 	import NoteList from '$lib/components/notes/note-list.svelte';
 	import SettingsModal from '$lib/components/settings/settings-modal.svelte';
+	import WelcomeModal from '$lib/components/welcome-modal.svelte';
 	import { notes, tags } from '$lib/stores';
 
 	const notesCount = notes.count;
@@ -24,6 +25,7 @@
 		<NoteAddButton />
 	</section>
 </main>
+<WelcomeModal />
 <SettingsModal />
 
 <style lang="scss">

@@ -1,10 +1,13 @@
 <script lang="ts">
 	import Button from './button.svelte';
 	import FaXmark from '$icon/fa-xmark.svelte';
+	import { createEventDispatcher } from 'svelte';
 
 	export let open: boolean;
 	export let title: string;
 	export let size: 'sm' | 'md' | 'lg' = 'md';
+
+	const dispatch = createEventDispatcher();
 
 	const maxWidths = {
 		sm: '400px',
@@ -20,6 +23,7 @@
 
 	function close() {
 		open = false;
+		dispatch('close');
 	}
 
 	function escape(event: KeyboardEvent) {
@@ -47,7 +51,7 @@
 	.app-modal {
 		article {
 			max-width: var(--max-width, none);
-			flex: 1 0 auto;
+			flex: 1 0 0;
 		}
 
 		header {
