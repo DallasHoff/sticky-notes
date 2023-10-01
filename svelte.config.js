@@ -9,6 +9,7 @@ const config = {
 			fallback: 'index.html',
 		}),
 		alias: {
+			$styles: 'src/styles/*',
 			$icon: 'src/assets/fontawesome/light/*',
 		},
 	},

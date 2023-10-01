@@ -1,0 +1,9 @@
+@use '@picocss/pico/scss/pico' with (
+	$enable-responsive-typography: false,
+	$enable-responsive-spacings: false,
+	$primary-hue: 212
+);
+
+html.modal-is-open {
+	scrollbar-gutter: stable;
+}

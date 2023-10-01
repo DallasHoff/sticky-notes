@@ -1,0 +1,88 @@
+@use 'bytemd/dist/index.css';
+
+.bytemd {
+	--editor-bg: hsl(0 0% 100% / 0.1);
+	--editor-text: black;
+	--editor-border: hsl(0 0% 0% / 0.3);
+	font-family: var(--font-family);
+	height: 100%;
+	color-scheme: light;
+	color: var(--editor-text);
+	background-color: var(--editor-bg);
+	border-color: var(--editor-bg);
+	border-inline: none;
+
+	&.bytemd-fullscreen {
+		--editor-bg: var(--note-color, hsl(0 0% 100%));
+		z-index: 1000;
+	}
+
+	.bytemd-toolbar {
+		background-color: var(--editor-bg);
+		border-color: var(--editor-border);
+	}
+
+	.bytemd-toolbar-icon:hover {
+		background-color: hsl(0 0% 0% / 0.075);
+	}
+
+	.CodeMirror {
+		font-size: 1rem;
+		color: var(--editor-text);
+		background-color: var(--editor-bg);
+	}
+
+	.bytemd-status {
+		color: var(--editor-text);
+		border-color: var(--editor-border);
+	}
+
+	.bytemd-split,
+	.bytemd-sidebar {
+		border-color: var(--editor-border);
+	}
+
+	.bytemd-sidebar ul {
+		color: var(--editor-text);
+	}
+}
+
+.bytemd-split .bytemd-preview {
+	border-color: var(--editor-border);
+}
+
+.tippy-box {
+	font-size: 0.875rem;
+	color: var(--tooltip-color);
+	background-color: var(--tooltip-background-color);
+}
+
+.tippy-content {
+	line-height: 1;
+	padding: 0.25rem 0.5rem;
+}
+
+.tippy-arrow {
+	color: var(--tooltip-background-color);
+}
+
+:root[data-theme='dark'] .bytemd {
+	--editor-bg: hsl(0 0% 0% / 0.075);
+	color-scheme: dark;
+
+	&.bytemd-fullscreen {
+		--editor-bg: var(--note-color, hsl(0 0% 80%));
+	}
+}
+
+body:has(.bytemd-fullscreen) {
+	overflow: hidden;
+}
+
+@media (min-width: 768px) {
+	.bytemd {
+		.CodeMirror {
+			font-size: 0.9rem;
+		}
+	}
+}
