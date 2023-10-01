@@ -1,4 +1,4 @@
-import { writable, type Readable } from 'svelte/store';
+import { writable, type Readable, get } from 'svelte/store';
 
 export type Theme = 'light' | 'dark';
 
@@ -8,22 +8,29 @@ export class ThemeStore implements Readable<Theme> {
 			(window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light')
 	);
 
-	constructor() {
-		const themeMetaTag = document.querySelector('meta[name="theme-color"]');
+	readonly themeColor: Record<Theme, string> = {
+		light: '#fbfbfc',
+		dark: '#18232c',
+	};
 
-		this.theme.subscribe((newTheme) => {
-			document.documentElement.dataset.theme = newTheme;
-			localStorage.setItem('theme', newTheme);
-			themeMetaTag?.setAttribute('content', newTheme === 'dark' ? '#18232c' : '#fbfbfc');
-		});
+	constructor() {
+		this.apply(get(this.theme));
 	}
 
+	private apply = (theme: Theme) => {
+		const themeMetaTag = document.querySelector('meta[name="theme-color"]');
+		document.documentElement.dataset.theme = theme;
+		localStorage.setItem('theme', theme);
+		themeMetaTag?.setAttribute('content', this.themeColor[theme]);
+	};
+
 	subscribe = this.theme.subscribe;
-	set = this.theme.set;
 
 	toggle = () => {
 		this.theme.update((currentTheme) => {
-			return currentTheme === 'dark' ? 'light' : 'dark';
+			const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+			this.apply(newTheme);
+			return newTheme;
 		});
 	};
 }
