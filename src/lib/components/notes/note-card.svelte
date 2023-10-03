@@ -43,7 +43,12 @@
 			<NoteTags {note} {noteTags} bind:this={tagsComponent} />
 		</div>
 	</header>
-	<div class="note-card__body" class:note-card__body--editing={$editing}>
+	<div
+		role="application"
+		class="note-card__body"
+		class:note-card__body--editing={$editing}
+		on:dblclick={noteEditorStore.startEditing}
+	>
 		<NoteContent {note} {noteEditorStore} />
 	</div>
 	<footer class="note-card__footer">
