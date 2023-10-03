@@ -51,6 +51,12 @@
 	border-color: var(--editor-border);
 }
 
+.markdown-body {
+	pre {
+		background-color: hsl(0 0% 100% / 0.3);
+	}
+}
+
 .tippy-box {
 	font-size: 0.875rem;
 	color: var(--tooltip-color);
@@ -66,12 +72,13 @@
 	color: var(--tooltip-background-color);
 }
 
-:root[data-theme='dark'] .bytemd {
-	--editor-bg: hsl(0 0% 0% / 0.075);
-	color-scheme: dark;
+:root[data-theme='dark'] {
+	.bytemd {
+		color-scheme: dark;
+	}
 
-	&.bytemd-fullscreen {
-		--editor-bg: var(--note-color, hsl(0 0% 80%));
+	.markdown-body {
+		color-scheme: dark;
 	}
 }
 
