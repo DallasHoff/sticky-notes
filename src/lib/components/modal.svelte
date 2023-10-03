@@ -6,6 +6,7 @@
 	export let open: boolean;
 	export let title: string;
 	export let size: 'sm' | 'md' | 'lg' = 'md';
+	export let noOutsideClick: boolean = false;
 
 	const dispatch = createEventDispatcher();
 
@@ -34,7 +35,7 @@
 </script>
 
 <svelte:window on:keyup={escape} />
-<dialog {open} on:click={close} class="app-modal">
+<dialog {open} on:click={() => (!noOutsideClick ? close() : null)} class="app-modal">
 	<article style:--max-width={maxWidths[size]} on:click|stopPropagation>
 		<header>
 			{title}

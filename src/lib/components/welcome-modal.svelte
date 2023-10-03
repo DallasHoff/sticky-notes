@@ -18,7 +18,7 @@
 	}
 </script>
 
-<Modal title="Welcome!" size="sm" bind:open on:close={close}>
+<Modal title="Welcome!" size="sm" noOutsideClick={true} bind:open on:close={close}>
 	<p>
 		Capture your thoughts for later by writing a quick note. Add tags to categorize it and organize
 		your notes.
