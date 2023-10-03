@@ -15,6 +15,7 @@
 		"postinstall": "patch-package"
 	},
 	"dependencies": {
+		"@bytemd/plugin-gfm": "^1.21.0",
 		"bytemd": "1.21.0",
 		"kysely": "^0.26.3",
 		"sqlocal": "^0.6.1"

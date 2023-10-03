@@ -52,8 +52,24 @@
 }
 
 .markdown-body {
-	pre {
-		background-color: hsl(0 0% 100% / 0.3);
+	--table-border-color: hsl(0 0% 0% / 0.4);
+	--blockquote-border-color: hsl(0 0% 0% / 0.4);
+	--code-background-color: hsl(0 0% 100% / 0.4);
+
+	hr {
+		border-color: hsl(0 0% 0% / 0.4);
+	}
+
+	del {
+		color: inherit;
+	}
+
+	p:last-child {
+		margin-bottom: 0;
+	}
+
+	.task-list-item {
+		list-style-type: none;
 	}
 }
 
