@@ -47,7 +47,7 @@
 		role="application"
 		class="note-card__body"
 		class:note-card__body--editing={$editing}
-		on:dblclick={noteEditorStore.startEditing}
+		on:dblclick={() => (!$editing ? noteEditorStore.startEditing() : null)}
 	>
 		<NoteContent {note} {noteEditorStore} />
 	</div>
