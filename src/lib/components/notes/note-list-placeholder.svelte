@@ -17,7 +17,7 @@
 		max-width: 15rem;
 		margin: 15vh auto 0;
 		text-align: center;
-		opacity: 0.5;
+		opacity: 0.7;
 
 		h2 {
 			margin: 0 0 1.5rem 0;
