@@ -13,7 +13,7 @@ export default defineConfig({
 		appleSplashScreens: createAppleSplashScreens(
 			{
 				name: (landscape, size, dark) => {
-					return `apple-splash-${landscape ? 'landscape' : 'portrait'}-${
+					return `splash/apple-splash-${landscape ? 'landscape' : 'portrait'}-${
 						typeof dark === 'boolean' ? (dark ? 'dark-' : 'light-') : ''
 					}${size.width}x${size.height}.png`;
 				},
