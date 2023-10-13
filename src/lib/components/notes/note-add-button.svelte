@@ -22,7 +22,7 @@
 		height: 4rem;
 		margin: 0;
 		border-radius: 50%;
-		box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+		box-shadow: var(--card-shadow);
 
 		& > :global(svg) {
 			width: 2rem;

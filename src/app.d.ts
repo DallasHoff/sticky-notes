@@ -1,3 +1,5 @@
+/// <reference types="vite-plugin-pwa/svelte" />
+
 // See https://kit.svelte.dev/docs/types#app
 // for information about these interfaces
 declare global {

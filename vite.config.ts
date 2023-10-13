@@ -1,5 +1,6 @@
 import { sveltekit } from '@sveltejs/kit/vite';
 import { defineConfig } from 'vite';
+import { SvelteKitPWA } from '@vite-pwa/sveltekit';
 
 export default defineConfig({
 	plugins: [
@@ -14,6 +15,16 @@ export default defineConfig({
 				});
 			},
 		},
+		SvelteKitPWA({
+			strategies: 'generateSW',
+			registerType: 'prompt',
+			manifest: false,
+			workbox: {
+				globPatterns: ['**/*.{js,css,html,ico,png,svg,ttf,wasm}'],
+				globIgnores: ['**/apple-splash-*'],
+				maximumFileSizeToCacheInBytes: 5000000,
+			},
+		}),
 	],
 	build: {
 		target: 'esnext',

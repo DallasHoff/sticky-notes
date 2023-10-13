@@ -1,5 +1,6 @@
 <script lang="ts">
 	import AppHeader from '$lib/components/app-header.svelte';
+	import AppUpdatePrompt from '$lib/components/app-update-prompt.svelte';
 	import FilterTags from '$lib/components/filter-tags.svelte';
 	import NoteAddButton from '$lib/components/notes/note-add-button.svelte';
 	import NoteListPlaceholder from '$lib/components/notes/note-list-placeholder.svelte';
@@ -27,6 +28,7 @@
 </main>
 <WelcomeModal />
 <SettingsModal />
+<AppUpdatePrompt />
 
 <style lang="scss">
 	main {
