@@ -11,12 +11,14 @@
 	const paddingRows = 2;
 	let scrollHeight = 0;
 	let scrollOffset = 0;
-	let flipDuration = 0;
 
 	let notesOffset = 0;
 	let notesLimit = 100;
 	let prevNotesCount = 0;
 	let prevRowHeight = 0;
+
+	let flipDuration = 0;
+	let flipTimeout: ReturnType<typeof setTimeout> | undefined;
 
 	const { noteScale } = settings;
 	let scaleUnsubscribe: Unsubscriber;
@@ -41,7 +43,8 @@
 
 		if (notesCount !== prevNotesCount) {
 			flipDuration = 300;
-			setTimeout(() => {
+			clearTimeout(flipTimeout);
+			flipTimeout = setTimeout(() => {
 				flipDuration = 0;
 			}, 300);
 		}
