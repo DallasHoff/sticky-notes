@@ -2,6 +2,7 @@
 	import NoteCard from '$lib/components/notes/note-card.svelte';
 	import { notes, settings } from '$lib/stores';
 	import { onDestroy, onMount } from 'svelte';
+	import { flip } from 'svelte/animate';
 	import { get, type Unsubscriber } from 'svelte/store';
 
 	let noteListElement: HTMLUListElement;
@@ -10,6 +11,7 @@
 	const paddingRows = 2;
 	let scrollHeight = 0;
 	let scrollOffset = 0;
+	let flipDuration = 0;
 
 	let notesOffset = 0;
 	let notesLimit = 100;
@@ -36,6 +38,13 @@
 		const limit =
 			Math.min(notesCount - offset, Math.ceil(windowHeight / rowHeight) + paddingRows * 2) *
 			columnCount;
+
+		if (notesCount !== prevNotesCount) {
+			flipDuration = 300;
+			setTimeout(() => {
+				flipDuration = 0;
+			}, 300);
+		}
 
 		if (
 			offset === notesOffset &&
@@ -80,7 +89,11 @@
 	style:--scroll-offset={`translateY(${scrollOffset}px)`}
 >
 	{#each $notes as note (note.id)}
-		<li>
+		<li
+			class="note-list__item"
+			class:note-list__item--no-flip={flipDuration === 0}
+			animate:flip={{ duration: flipDuration }}
+		>
 			<NoteCard {note} />
 		</li>
 	{/each}
@@ -97,10 +110,14 @@
 		padding: 0;
 		margin: 0;
 
-		li {
+		&__item {
 			list-style-type: none;
 			margin: 0;
 			transform: var(--scroll-offset, none);
+
+			&--no-flip {
+				animation: none !important;
+			}
 
 			&:has(.bytemd-fullscreen) {
 				transform: none;
