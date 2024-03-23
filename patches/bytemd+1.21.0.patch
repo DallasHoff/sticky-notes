@@ -1,3 +1,15 @@
+diff --git a/node_modules/bytemd/package.json b/node_modules/bytemd/package.json
+index 9103d88..e59f261 100644
+--- a/node_modules/bytemd/package.json
++++ b/node_modules/bytemd/package.json
+@@ -16,6 +16,7 @@
+   "author": "Rongjian Zhang",
+   "exports": {
+     ".": {
++      "svelte": "./svelte/index.js",
+       "types": "./dist/index.d.ts",
+       "import": "./dist/index.mjs",
+       "require": "./dist/index.js"
 diff --git a/node_modules/bytemd/svelte/editor.svelte b/node_modules/bytemd/svelte/editor.svelte
 index 652a063..9ab0895 100644
 --- a/node_modules/bytemd/svelte/editor.svelte
