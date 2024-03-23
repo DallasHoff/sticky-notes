@@ -29,6 +29,7 @@ html {
 	background-size: min(20vw, 150px);
 	background-position: center center;
 	background-repeat: no-repeat;
+	scrollbar-color: var(--range-thumb-color) var(--range-border-color);
 
 	&[data-theme] {
 		background-image: none;

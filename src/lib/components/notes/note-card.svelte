@@ -75,6 +75,7 @@
 		background-color: var(--note-color);
 		border-radius: 0;
 		box-shadow: var(--card-shadow);
+		scrollbar-color: hsl(0 0% 0% / 0.2) hsl(0 0% 0% / 0.2);
 
 		&__header,
 		&__footer {
