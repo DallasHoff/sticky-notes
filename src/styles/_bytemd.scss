@@ -68,6 +68,10 @@
 		margin-bottom: 0;
 	}
 
+	:where(dl, ol, ul) {
+		margin-bottom: 1rem;
+	}
+
 	.task-list-item {
 		list-style-type: none;
 	}

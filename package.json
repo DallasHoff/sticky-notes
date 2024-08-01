@@ -19,7 +19,7 @@
 		"@bytemd/plugin-gfm": "^1.21.0",
 		"bytemd": "1.21.0",
 		"kysely": "^0.27.3",
-		"sqlocal": "^0.7.1"
+		"sqlocal": "^0.11.1"
 	},
 	"devDependencies": {
 		"@picocss/pico": "^1.5.10",
