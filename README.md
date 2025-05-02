@@ -1,6 +1,6 @@
 # Sticky Notes App
 
-A simple notes app built with [SvelteKit](https://kit.svelte.dev/), [Kysely](https://kysely.dev/), and [SQLocal](https://sqlocal.dallashoffman.com/).
+A simple notes app built with [SQLocal](https://sqlocal.dev/), [Kysely](https://kysely.dev/), and [SvelteKit](https://kit.svelte.dev/).
 
 - Notes can be written in Markdown for rich formatting
 - Tag notes to categorize and filter them
