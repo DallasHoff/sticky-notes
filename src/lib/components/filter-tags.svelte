@@ -5,10 +5,15 @@
 	import { scale } from 'svelte/transition';
 
 	const limit = 6;
-	let limited = true;
+	let limited = localStorage.noteTagsLimited === 'false' ? false : true;
 	let tagList: TagFilter[] = [];
 
 	$: tagList = !limited ? $tags : $tags.slice(0, limit);
+
+	function toggleLimited() {
+		limited = !limited;
+		localStorage.noteTagsLimited = limited.toString();
+	}
 </script>
 
 <div class="filter-tags">
@@ -29,7 +34,8 @@
 		<button
 			type="button"
 			class="filter-tags__tag filter-tags__tag--more-toggle"
-			on:click={() => (limited = !limited)}
+			in:scale
+			on:click={toggleLimited}
 		>
 			Show {limited ? 'More' : 'Less'}
 		</button>
