@@ -1,4 +1,4 @@
-import { Kysely, Migrator, sql } from 'kysely';
+import { Kysely, Migrator } from 'kysely';
 import { migrations } from './migrations/';
 import type { Schema } from './schema';
 
@@ -12,7 +12,6 @@ export async function migrate(db: Kysely<Schema>) {
 		},
 	});
 
-	await sql`PRAGMA foreign_keys = ON`.execute(db);
 	const migration = await migrator.migrateToLatest();
 
 	if (migration.error) {

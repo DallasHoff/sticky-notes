@@ -33,7 +33,7 @@ export class NotesStore implements Readable<Note[]> {
 
 		const query =
 			selectedTags.length === 0
-				? db.selectFrom('note').selectAll().orderBy('createdAt desc')
+				? db.selectFrom('note').selectAll().orderBy('createdAt', 'desc')
 				: db
 						.selectFrom('noteTag')
 						.innerJoin('note', 'note.id', 'noteTag.noteId')
@@ -41,7 +41,7 @@ export class NotesStore implements Readable<Note[]> {
 						.where('tagId', 'in', selectedTags)
 						.groupBy('noteId')
 						.having(({ fn }) => fn.count('noteId'), '=', selectedTags.length)
-						.orderBy('createdAt desc');
+						.orderBy('createdAt', 'desc');
 
 		const notesData = await query.offset(this.offset).limit(this.limit).execute();
 		const { notesCount } = await db

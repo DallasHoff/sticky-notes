@@ -78,8 +78,8 @@ export class TagsStore implements Readable<TagFilter[]> {
 					.as('selected'),
 			])
 			.groupBy('tagId')
-			.orderBy('selected desc')
-			.orderBy('matchedNotes desc')
+			.orderBy('selected', 'desc')
+			.orderBy('matchedNotes', 'desc')
 			.execute();
 
 		this.tags.set(tagsData);

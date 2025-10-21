@@ -18,7 +18,7 @@ export class NoteTagsStore implements Readable<Tag[]> {
 			.where('noteTag.noteId', '=', this.noteId)
 			.innerJoin('tag', 'noteTag.tagId', 'tag.id')
 			.select(['tag.id', 'tag.label'])
-			.orderBy('addedAt asc')
+			.orderBy('addedAt', 'asc')
 			.execute();
 
 		this.noteTags.set(tagsData);
