@@ -28,6 +28,10 @@ export default defineConfig({
 	],
 	build: {
 		target: 'esnext',
+		chunkSizeWarningLimit: 1500,
+	},
+	worker: {
+		format: 'es',
 	},
 	optimizeDeps: {
 		exclude: ['sqlocal', 'bytemd'],
