@@ -14,8 +14,12 @@
 	import { tick } from 'svelte';
 	import NoteSaveButton from './note-save-button.svelte';
 	import { NoteEditorStore } from '$lib/stores/note-editor';
+	import NotePipButton from './note-pip-button.svelte';
 
 	export let note: Note;
+	export let isReadonly: boolean = false;
+
+	const supportsPictureInPicture = 'documentPictureInPicture' in window;
 
 	const noteTags = new NoteTagsStore(note.id, notes, tags);
 	const noteEditorStore = new NoteEditorStore(note.id, notes);
@@ -33,30 +37,35 @@
 
 <article class="note-card" style:--note-color={NoteColor[note.color][$themeUpperCase]}>
 	<header class="note-card__header" hidden={$editing}>
-		<div class="note-card__header-buttons">
+		<div class="note-card__header-buttons" hidden={isReadonly}>
 			<NoteDeleteButton {note} {noteEditorStore} />
 			<div class="note-card__spacer" />
 			<NoteColorPicker {note} {noteEditorStore} />
+			{#if supportsPictureInPicture}
+				<NotePipButton {note} />
+			{/if}
 			<NoteTagButton on:click={focusTags} />
 		</div>
 		<div hidden={!showTags && $noteTags.length === 0}>
-			<NoteTags {note} {noteTags} bind:this={tagsComponent} />
+			<NoteTags {note} {noteTags} {isReadonly} bind:this={tagsComponent} />
 		</div>
 	</header>
 	<div
 		role="application"
 		class="note-card__body"
 		class:note-card__body--editing={$editing}
-		on:dblclick={() => (!$editing ? noteEditorStore.startEditing() : null)}
+		on:dblclick={() => (!isReadonly && !$editing ? noteEditorStore.startEditing() : null)}
 	>
 		<NoteContent {note} {noteEditorStore} />
 	</div>
 	<footer class="note-card__footer">
-		{#if !$editing}
-			<NoteEditButton on:click={noteEditorStore.startEditing} />
-		{:else}
-			<NoteSaveButton on:click={noteEditorStore.save} />
-			<NoteDiscardButton on:click={noteEditorStore.discard} />
+		{#if !isReadonly}
+			{#if !$editing}
+				<NoteEditButton on:click={noteEditorStore.startEditing} />
+			{:else}
+				<NoteSaveButton on:click={noteEditorStore.save} />
+				<NoteDiscardButton on:click={noteEditorStore.discard} />
+			{/if}
 		{/if}
 		<div class="note-card__spacer" />
 		<NoteTimestamp {note} />

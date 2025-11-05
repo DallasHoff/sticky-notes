@@ -7,6 +7,7 @@
 
 	export let note: Note;
 	export let noteTags: NoteTagsStore;
+	export let isReadonly: boolean = false;
 
 	export function focusTextbox() {
 		textbox.focus();
@@ -40,35 +41,39 @@
 		{#each $noteTags as tag (tag.id)}
 			<li class="note-tags__tag">
 				{tag.label}
-				<Button
-					plain
-					icon
-					size="sm"
-					label="Remove tag"
-					tooltipPlacement={null}
-					on:click={() => removeTag(tag.id)}
-				>
-					<FaXmark />
-				</Button>
+				{#if !isReadonly}
+					<Button
+						plain
+						icon
+						size="sm"
+						label="Remove tag"
+						tooltipPlacement={null}
+						on:click={() => removeTag(tag.id)}
+					>
+						<FaXmark />
+					</Button>
+				{/if}
 			</li>
 		{/each}
 	</ul>
-	<div class="note-tags__textbox" data-tooltip="Add tag">
-		<input
-			type="text"
-			bind:this={textbox}
-			name="newTag"
-			aria-label="New tag"
-			list={`note-tag--${note.id}`}
-			bind:value={newTagLabel}
-			on:keyup={onKeyup}
-		/>
-		<datalist id={`note-tag--${note.id}`}>
-			{#each suggestions as suggestion}
-				<option value={suggestion} />
-			{/each}
-		</datalist>
-	</div>
+	{#if !isReadonly}
+		<div class="note-tags__textbox" data-tooltip="Add tag">
+			<input
+				type="text"
+				bind:this={textbox}
+				name="newTag"
+				aria-label="New tag"
+				list={`note-tag--${note.id}`}
+				bind:value={newTagLabel}
+				on:keyup={onKeyup}
+			/>
+			<datalist id={`note-tag--${note.id}`}>
+				{#each suggestions as suggestion}
+					<option value={suggestion} />
+				{/each}
+			</datalist>
+		</div>
+	{/if}
 </div>
 
 <style lang="scss">
@@ -92,7 +97,7 @@
 
 		&__tag,
 		&__textbox input {
-			font-size: 1rem;
+			font-size: 0.8rem;
 			width: auto;
 			height: auto;
 			padding: 0 0.5em;
@@ -135,15 +140,6 @@
 				&::-webkit-calendar-picker-indicator {
 					display: none !important;
 				}
-			}
-		}
-	}
-
-	@media (min-width: 768px) {
-		.note-tags {
-			&__tag,
-			&__textbox input {
-				font-size: 0.8rem;
 			}
 		}
 	}

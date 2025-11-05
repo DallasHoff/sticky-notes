@@ -36,6 +36,12 @@ html {
 	}
 }
 
+@media (display-mode: picture-in-picture) {
+	html {
+		overscroll-behavior: none;
+	}
+}
+
 body {
 	background-color: var(--background-color);
 
@@ -82,4 +88,10 @@ ul > li {
 
 ol > li {
 	list-style: decimal;
+}
+
+#picture-in-picture {
+	height: 100vh;
+	height: 100dvh;
+	overflow: hidden;
 }
