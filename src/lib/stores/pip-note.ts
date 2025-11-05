@@ -1,5 +1,5 @@
 import NoteCard from '$lib/components/notes/note-card.svelte';
-import { writable, type Readable } from 'svelte/store';
+import { get, writable, type Readable } from 'svelte/store';
 import type { Note } from './notes';
 import { notes } from '.';
 
@@ -19,9 +19,11 @@ export class PipNoteStore implements Readable<Note | null> {
 
 		// Update the note when it is edited in the main window
 		const unsubscribe = notes.subscribe((updatedNotes) => {
+			const activeNote = get(this.activeNote);
 			const updatedNote = updatedNotes.find((n) => n.id === note.id);
-			if (!updatedNote) return;
-			this.mountNote(pipWindow, updatedNote);
+			if (updatedNote && (!activeNote || activeNote.updatedAt !== updatedNote.updatedAt)) {
+				this.mountNote(pipWindow, updatedNote);
+			}
 		});
 
 		// Handle clearing active note when the picture-in-picture window closes
