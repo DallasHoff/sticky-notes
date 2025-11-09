@@ -1,20 +1,12 @@
 import { sveltekit } from '@sveltejs/kit/vite';
 import { defineConfig } from 'vite';
 import { SvelteKitPWA } from '@vite-pwa/sveltekit';
+import sqlocal from 'sqlocal/vite';
 
 export default defineConfig({
 	plugins: [
 		sveltekit(),
-		{
-			name: 'configure-response-headers',
-			configureServer: (server) => {
-				server.middlewares.use((_req, res, next) => {
-					res.setHeader('Cross-Origin-Embedder-Policy', 'require-corp');
-					res.setHeader('Cross-Origin-Opener-Policy', 'same-origin');
-					next();
-				});
-			},
-		},
+		sqlocal(),
 		SvelteKitPWA({
 			strategies: 'generateSW',
 			registerType: 'prompt',
@@ -30,10 +22,7 @@ export default defineConfig({
 		target: 'esnext',
 		chunkSizeWarningLimit: 1500,
 	},
-	worker: {
-		format: 'es',
-	},
 	optimizeDeps: {
-		exclude: ['sqlocal', 'bytemd'],
+		exclude: ['bytemd'],
 	},
 });
