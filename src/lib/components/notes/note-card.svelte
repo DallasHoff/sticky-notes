@@ -42,7 +42,7 @@
 			<div class="note-card__spacer" />
 			<NoteColorPicker {note} {noteEditorStore} />
 			{#if supportsPictureInPicture}
-				<NotePipButton {note} />
+				<NotePipButton {note} {noteTags} />
 			{/if}
 			<NoteTagButton on:click={focusTags} />
 		</div>

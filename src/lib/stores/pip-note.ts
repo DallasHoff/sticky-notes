@@ -2,13 +2,14 @@ import NoteCard from '$lib/components/notes/note-card.svelte';
 import { get, writable, type Readable } from 'svelte/store';
 import type { Note } from './notes';
 import { notes } from '.';
+import type { NoteTagsStore } from './note-tags';
 
 export class PipNoteStore implements Readable<Note | null> {
 	private activeNote = writable<Note | null>(null);
 
 	subscribe = this.activeNote.subscribe;
 
-	async openPipNoteCard(note: Note) {
+	async openPipNoteCard(note: Note, noteTags?: NoteTagsStore) {
 		// Create picture-in-picture window
 		// @ts-expect-error documentPictureInPicture is experimental
 		const pipWindow = await window.documentPictureInPicture.requestWindow({
@@ -18,11 +19,17 @@ export class PipNoteStore implements Readable<Note | null> {
 		this.copyAllStylesheets(pipWindow);
 
 		// Update the note when it is edited in the main window
-		const unsubscribe = notes.subscribe((updatedNotes) => {
+		const unsubscribeNotes = notes.subscribe((updatedNotes) => {
 			const activeNote = get(this.activeNote);
 			const updatedNote = updatedNotes.find((n) => n.id === note.id);
 			if (updatedNote && (!activeNote || activeNote.updatedAt !== updatedNote.updatedAt)) {
 				this.mountNote(pipWindow, updatedNote);
+			}
+		});
+		const unsubscribeTags = noteTags?.subscribe(() => {
+			const activeNote = get(this.activeNote);
+			if (activeNote) {
+				this.mountNote(pipWindow, activeNote);
 			}
 		});
 
@@ -30,7 +37,8 @@ export class PipNoteStore implements Readable<Note | null> {
 		pipWindow.addEventListener(
 			'pagehide',
 			() => {
-				unsubscribe();
+				unsubscribeNotes();
+				unsubscribeTags?.();
 				this.activeNote.set(null);
 			},
 			{ once: true }

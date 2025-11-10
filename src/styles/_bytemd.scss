@@ -72,6 +72,10 @@
 		margin-bottom: 1rem;
 	}
 
+	:where(pre, code, kbd, samp) {
+		max-width: 100%;
+	}
+
 	.task-list-item {
 		list-style-type: none;
 	}
